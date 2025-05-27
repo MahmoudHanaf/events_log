@@ -1,3 +1,6 @@
+import 'package:charging_station/screens/drawer_screens/collabrations/collabrations_screen.dart';
+import 'package:charging_station/screens/drawer_screens/events/events_screen.dart';
+import 'package:charging_station/screens/drawer_screens/submit_event/submit_event.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -33,7 +36,7 @@ class DrawerScreen extends StatelessWidget {
                     "Events Log",
                     style: TextStyle(
                       fontSize: 25,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
                   ),
@@ -51,8 +54,8 @@ class DrawerScreen extends StatelessWidget {
               title: Text(
                 "Home",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[800],
                 ),
               ),
@@ -61,7 +64,12 @@ class DrawerScreen extends StatelessWidget {
           Divider(height: 3, color: Colors.grey[400]),
 
           GestureDetector(
-            onTap: () async {},
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EventsScreen()),
+              );
+            },
             child: ListTile(
               leading: Icon(
                 Icons.event_note_sharp,
@@ -71,17 +79,46 @@ class DrawerScreen extends StatelessWidget {
               title: Text(
                 "Events",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[800],
                 ),
               ),
             ),
           ),
           Divider(height: 3, color: Colors.grey[400]),
-          SizedBox(height: 5),
           GestureDetector(
-            onTap: () async {},
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SubmitEventScreen()),
+              );
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.event_available_rounded,
+                size: 25,
+                color: Colors.grey[500],
+              ),
+              title: Text(
+                "Submit Event",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
+              ),
+            ),
+          ),
+          Divider(height: 3, color: Colors.grey[400]),
+          // SizedBox(height: 5),
+          GestureDetector(
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CollaborationsScreen()),
+              );
+            },
             child: ListTile(
               leading: Icon(
                 Icons.collections_bookmark,
@@ -91,8 +128,8 @@ class DrawerScreen extends StatelessWidget {
               title: Text(
                 "Collabrations",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[800],
                 ),
               ),
@@ -110,8 +147,8 @@ class DrawerScreen extends StatelessWidget {
               title: Text(
                 "FAQ",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[800],
                 ),
               ),
@@ -126,8 +163,8 @@ class DrawerScreen extends StatelessWidget {
               title: Text(
                 "Logout",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[800],
                 ),
               ),

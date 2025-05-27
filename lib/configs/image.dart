@@ -19,6 +19,14 @@ class Images {
   static const String tumblr = "assets/images/tumblr.png";
   static const String instagram = "assets/images/instagram.png";
 
+  //
+  static const String socities = "assets/images/socities.jpg";
+  static const String hospital1 = "assets/images/hospital1.jpg";
+  static const String hospital2 = "assets/images/hospital2.jpg";
+  static const String company1 = "assets/images/company1.jpg";
+  static const String company2 = "assets/images/company2.jpg";
+  static const String event = "assets/images/event.jpg";
+
   ///Singleton factory
   static final Images _instance = Images._internal();
 

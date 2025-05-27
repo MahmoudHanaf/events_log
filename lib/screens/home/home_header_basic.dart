@@ -18,11 +18,11 @@ class HomeHeaderBasic extends SliverPersistentHeaderDelegate {
   });
 
   List categories = [
-    {"name": "Events", "number": "537", "icon": Icons.date_range_outlined},
-    {"name": "Destination", "number": "174", "icon": Icons.location_on},
+    {"name": "Events", "number": "0", "icon": Icons.date_range_outlined},
+    {"name": "Destination", "number": "0", "icon": Icons.location_on},
 
-    {"name": "Categories", "number": "55", "icon": Icons.check_box_outlined},
-    {"name": "Organizers", "number": "65", "icon": Icons.language},
+    {"name": "Categories", "number": "0", "icon": Icons.check_box_outlined},
+    {"name": "Organizers", "number": "0", "icon": Icons.language},
   ];
 
   @override

@@ -286,8 +286,8 @@ class _HomeState extends State<Home> {
     if (Application.setting.enableSubmit) {
       return FloatingActionButton(
         mini: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: _onSubmit,
+        backgroundColor: HexColor("#3fa0cb"),
+        onPressed: () {}, //_onSubmit,
         child: const Icon(Icons.add, color: Colors.white),
       );
     }
@@ -417,8 +417,12 @@ class _HomeState extends State<Home> {
                                         color: Colors.white,
                                         border: Border(
                                           left: BorderSide(
-                                            color: Colors.grey,
-                                            strokeAlign: 1,
+                                            color: Colors.grey.shade200,
+                                            width: 1,
+                                          ),
+                                          bottom: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 1,
                                           ),
                                         ),
                                       ),
