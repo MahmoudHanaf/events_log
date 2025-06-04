@@ -58,6 +58,14 @@ class Api {
   static const String gpsPicked = "/listar/v1/place/form";
   static const String getOtp = "/listar/v1/auth/otp";
 
+  // base url
+  static const String baseUrl = "https://events-log.com/wp-json/wp/v2";
+  // events
+  static const String events = "$baseUrl/eventer/4734";
+  static const String allEvents = "$baseUrl/eventer";
+  static const String collaborations = "$baseUrl/pages/2505";
+  static const String faq = "$baseUrl/pages/777";
+
   ///Login api
   static Future<ResultApiModel> requestLogin(params) async {
     final result = await httpManager.post(

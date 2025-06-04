@@ -12,6 +12,7 @@ import 'package:charging_station/screens/home/home_header_basic.dart';
 import 'package:charging_station/utils/utils.dart';
 import 'package:charging_station/widgets/widget.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,13 +30,21 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    // _homeCubit.getEvents();
     super.initState();
     _homeCubit.onLoad(reload: true);
+
     _reviewSubscription = AppBloc.reviewCubit.stream.listen((state) {
       if (state is ReviewSuccess && state.id != null) {
         _homeCubit.onLoad();
       }
     });
+  }
+
+  String formatDate(String inputDate, bool day) {
+    DateTime dateTime = DateTime.parse(inputDate);
+    String formatted = DateFormat('dd MMMM').format(dateTime); // e.g. 04 July
+    return day == true ? formatted.split(" ").first : formatted.split(" ").last;
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -332,7 +341,8 @@ class _HomeState extends State<Home> {
         ],
       ),
       drawer: DrawerScreen(),
-      body: BlocBuilder<HomeCubit, HomeState>(
+      body: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {},
         bloc: _homeCubit,
         builder: (context, state) {
           List<String>? banner;
@@ -394,7 +404,9 @@ class _HomeState extends State<Home> {
                         SizedBox(height: 20),
                         AppButton(
                           "Subscribe Now",
-                          onPressed: () {},
+                          onPressed: () {
+                            //  _homeCubit.getEvents();
+                          },
                           //type: ButtonType.text,
                         ),
                         SizedBox(height: 18),
@@ -460,118 +472,136 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
 
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 90,
-                                      height: 170,
-                                      color: HexColor("#595fde"),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "04",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 30,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Text(
-                                            "July",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                              color: Colors.grey.shade100,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Next",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 13,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          Text(
-                                            "Upcoming Event",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18,
-                                              //color: Colors.white,
-                                            ),
-                                          ),
-
-                                          Text(
-                                            "Eath Fatty\nLiver Academy\n2024",
-                                            // textAlign: TextAlign.center,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 21,
-                                              color: HexColor("#595fde"),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                size: 22,
+                                if (state is HomeSuccess)
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 90,
+                                        height: 170,
+                                        color: HexColor("#595fde"),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              formatDate(
+                                                //  formate day
+                                                state.eventModel.date,
+                                                true,
                                               ),
-                                              Text(
-                                                "Alexandria",
-                                                textAlign: TextAlign.center,
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge!.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              formatDate(
+                                                //  formate day
+                                                state.eventModel.date,
+                                                false,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge!.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Next",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge!.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 13,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Upcoming Event",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge!.copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                                //color: Colors.white,
+                                              ),
+                                            ),
+
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                state.eventModel.title,
+                                                maxLines: 2,
+                                                // textAlign: TextAlign.center,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge!
                                                     .copyWith(
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 16,
-                                                      color: Colors.grey,
+                                                      fontSize: 21,
+                                                      color: HexColor(
+                                                        "#595fde",
+                                                      ),
                                                     ),
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                            SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on_outlined,
+                                                  size: 22,
+                                                ),
+                                                Text(
+                                                  state.eventModel.venue.name,
+                                                  textAlign: TextAlign.center,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge!
+                                                      .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 16,
+                                                        color: Colors.grey,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),

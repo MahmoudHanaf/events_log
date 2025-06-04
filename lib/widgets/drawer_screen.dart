@@ -1,6 +1,7 @@
 import 'package:charging_station/screens/drawer_screens/collabrations/collabrations_screen.dart';
 import 'package:charging_station/screens/drawer_screens/events/events_screen.dart';
 import 'package:charging_station/screens/drawer_screens/submit_event/submit_event.dart';
+import 'package:charging_station/screens/faq_screen/faq_screen.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -137,7 +138,12 @@ class DrawerScreen extends StatelessWidget {
           ),
           Divider(height: 3, color: Colors.grey[400]),
           GestureDetector(
-            onTap: () async {},
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FAQScreen()),
+              );
+            },
             child: ListTile(
               leading: Icon(
                 Icons.question_answer,

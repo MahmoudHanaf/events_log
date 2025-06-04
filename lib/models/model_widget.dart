@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:charging_station/models/model.dart';
 import 'package:charging_station/widgets/widget.dart';
 
@@ -235,50 +235,56 @@ class AdmobWidgetModel extends WidgetModel {
   final WidgetType type = WidgetType.listing;
 
   final String bannerID;
-  final AdSize size;
+  //final AdSize size;
 
   AdmobWidgetModel({
     required this.title,
     required this.description,
     required this.bannerID,
-    required this.size,
+    // required this.size,
   });
-
-  factory AdmobWidgetModel.fromJson(Map<String, dynamic> json) {
-    String title = json['title'] ?? '';
-    String description = json['description'] ?? '';
-    Map<String, dynamic> data = json['data'];
-    if (json['hide_title'] == true) {
-      title = '';
-    }
-    if (json['hide_desc'] == true) {
-      description = '';
-    }
-
-    String bannerId = Platform.isIOS ? data["ios"] : data["android"];
-    if (kDebugMode) {
-      bannerId =
-          Platform.isIOS
-              ? "ca-app-pub-3940256099942544/2435281174"
-              : "ca-app-pub-3940256099942544/9214589741";
-    }
-
-    return AdmobWidgetModel(
-      title: title,
-      description: description,
-      bannerID: bannerId,
-      size: AdSize(
-        width: data['size']['width'],
-        height: data['size']['height'],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return AppAdmobWidget(admob: this);
+    // TODO: implement build
+    throw UnimplementedError();
   }
+
+  // factory AdmobWidgetModel.fromJson(Map<String, dynamic> json) {
+  // String title = json['title'] ?? '';
+  // String description = json['description'] ?? '';
+  // Map<String, dynamic> data = json['data'];
+  // if (json['hide_title'] == true) {
+  // title = '';
+  // }
+  // if (json['hide_desc'] == true) {
+  // description = '';
+  // }
+
+  // String bannerId = Platform.isIOS ? data["ios"] : data["android"];
+  // if (kDebugMode) {
+  // bannerId =
+  // Platform.isIOS
+  // ? "ca-app-pub-3940256099942544/2435281174"
+  // : "ca-app-pub-3940256099942544/9214589741";
+  // }
+
+  // return AdmobWidgetModel(
+  // title: title,
+  // description: description,
+  // bannerID: bannerId,
+  //  size: AdSize(
+  // width: data['size']['width'],
+  // height: data['size']['height'],
+  // ),
+  // );
 }
+
+// @override
+// Widget build(BuildContext context) {
+// return AppAdmobWidget(admob: this);
+// }
+// }
 
 class BlogWidgetModel extends WidgetModel {
   @override

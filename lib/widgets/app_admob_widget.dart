@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:charging_station/models/model.dart';
 
 class AppAdmobWidget extends StatefulWidget {
@@ -13,54 +13,54 @@ class AppAdmobWidget extends StatefulWidget {
 }
 
 class _AppAdmobWidgetState extends State<AppAdmobWidget> {
-  BannerAd? _bannerAd;
+  // BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
-    _createBannerAd();
+    //  _createBannerAd();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
+    //  _bannerAd?.dispose();
     super.dispose();
   }
 
   ///Create BannerAd
-  void _createBannerAd() {
-    final banner = BannerAd(
-      size: widget.admob.size,
-      request: const AdRequest(),
-      adUnitId: widget.admob.bannerID,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd?;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
-    banner.load();
-  }
+  // void _createBannerAd() {
+  // final banner = BannerAd(
+  // size: widget.admob.size,
+  // request: const AdRequest(),
+  // adUnitId: widget.admob.bannerID,
+  // listener: BannerAdListener(
+  // onAdLoaded: (ad) {
+  // setState(() {
+  // _bannerAd = ad as BannerAd?;
+  // });
+  // },
+  // onAdFailedToLoad: (ad, error) {
+  // ad.dispose();
+  // },
+  // ),
+  // );
+  // banner.load();
+  // }
 
   ///Build Banner Ads
-  Widget _buildBanner() {
-    if (_bannerAd != null) {
-      return Align(
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
-        ),
-      );
-    }
-    return Container();
-  }
+  // Widget _buildBanner() {
+  // if (_bannerAd != null) {
+  // return Align(
+  // alignment: Alignment.center,
+  // child: SizedBox(
+  // width: _bannerAd!.size.width.toDouble(),
+  // height: _bannerAd!.size.height.toDouble(),
+  // child: AdWidget(ad: _bannerAd!),
+  // ),
+  // );
+  // }
+  // return Container();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,11 @@ class _AppAdmobWidgetState extends State<AppAdmobWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [header, _buildBanner()],
+        children: [
+          header,
+
+          //  _buildBanner()
+        ],
       ),
     );
   }

@@ -1,10 +1,36 @@
 import 'package:bloc/bloc.dart';
 import 'package:charging_station/api/api.dart';
+import 'package:charging_station/api/dio_helper.dart';
 import 'package:charging_station/blocs/bloc.dart';
+import 'package:charging_station/models/events_model.dart';
 import 'package:charging_station/models/model.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeLoading());
+
+  /// get events
+  Future getEvents() async {
+    emit(EventsLoading());
+    final dioHelper = DioHelper();
+    try {
+      final response = await dioHelper.request(
+        url: Api.events,
+        method: "GET",
+        // data: {
+        //   "phone_number": "+971562029216",
+        //   "password": "12345678",
+        //   "deviceid": "22-35-23-A3-56",
+        // },
+        //  options: Options(headers: {"Content-Type": "application/json"}),
+      );
+      EventModel eventModel = EventModel.fromJson(response);
+      print(eventModel);
+      emit(SuccessGetEvents(eventModel: eventModel));
+    } catch (e) {
+      print("Error: $e");
+      emit(ErrorGetEvents(message: "$e"));
+    }
+  }
 
   Future<void> onLoad({
     reload = false,
@@ -13,6 +39,25 @@ class HomeCubit extends Cubit<HomeState> {
   }) async {
     if (reload) {
       emit(HomeLoading());
+    }
+
+    final dioHelper = DioHelper();
+    EventModel? eventModel;
+    try {
+      final response = await dioHelper.request(
+        url: Api.events,
+        method: "GET",
+        // data: {
+        //   "phone_number": "+971562029216",
+        //   "password": "12345678",
+        //   "deviceid": "22-35-23-A3-56",
+        // },
+        //  options: Options(headers: {"Content-Type": "application/json"}),
+      );
+      eventModel = EventModel.fromJson(response);
+    } catch (e) {
+      print("Error: $e");
+      emit(ErrorGetEvents(message: "$e"));
     }
 
     ///Fetch API Home
@@ -67,8 +112,8 @@ class HomeCubit extends Cubit<HomeState> {
                 return BannerWidgetModel.fromJson(item);
               case 'slider':
                 return SliderWidgetModel.fromJson(item);
-              case 'admob':
-                return AdmobWidgetModel.fromJson(item);
+              // case 'admob':
+              // return AdmobWidgetModel.fromJson(item);
               case 'post':
                 return BlogWidgetModel.fromJson(item);
               default:
@@ -86,6 +131,7 @@ class HomeCubit extends Cubit<HomeState> {
           recent: recent,
           options: options,
           widgets: widgets,
+          eventModel: eventModel!,
         ),
       );
     } else {
